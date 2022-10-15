@@ -2,3 +2,4 @@
 .git
 cmake-build-debug
 .vscode
+main
