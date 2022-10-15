@@ -42,7 +42,7 @@ double get_average_result(double *inputs, double *neuron, int count, int size, a
 double get_average_expected(double *inputs, int count, int size);
 
 int main(int argc, char const *argv[]) {
-    srand(2);
+    srand(4);
     if (argc < 9) {
         return -argc;
     }
@@ -107,9 +107,9 @@ double *gen_neuron(int size, double weight_min, double weight_max) {
 double *gen_training_patterns(int size, int count, double pattern_min, double pattern_max) {
     size = size + 1;
     double *arr = malloc(sizeof(double *) * count * size);
-    for (int i = 0; i < count; i++) {
+    for (long long i = 0; i < count; i++) {
         for (int j = 0; j < size; j++) {
-            arr[i * count + j] = fRand(pattern_min, pattern_max);
+            arr[i * size + j] = fRand(pattern_min, pattern_max);
         }
     }
     return arr;
@@ -142,10 +142,10 @@ void train_one_pattern(int size, double *neuron, double *inputs, double training
 
 void
 train_all_patterns(int size, int count, double *neuron, double *inputs, double training_step, activation_function f) {
-    for (int i = 0; i < count; i++) {
+    for (long i = 0; i < count; i++) {
         double *sub_arr = malloc((size + 1) * sizeof(double));
         for (int j = 0; j < size + 1; j++) {
-            sub_arr[j] = inputs[i * count + j];
+            sub_arr[j] = inputs[i * size + j];
         }
         train_one_pattern(size, neuron, sub_arr, training_step, f);
     }
@@ -160,18 +160,18 @@ void train_all_epoch(int size, int count, int epoch_count, double *neuron, doubl
 
 double get_average_expected(double *inputs, int count, int size) {
     double sum = 0;
-    for (int i = 0; i < count; i++) {
-        sum += inputs[i * count + size] / count;
+    for (long i = 0; i < count; i++) {
+        sum += inputs[i * size + size] / count;
     }
     return sum;
 }
 
 double get_average_result(double *inputs, double *neuron, int count, int size, activation_function func) {
     double sum = 0;
-    for (int i = 0; i < count; i++) {
+    for (long i = 0; i < count; i++) {
         double *sub_arr = malloc((size + 1) * sizeof(double));
         for (int j = 0; j < size + 1; j++) {
-            sub_arr[j] = inputs[i * count + j];
+            sub_arr[j] = inputs[i * size + j];
         }
         sum += neuron_output(size, neuron, sub_arr, func) / count;
     }
