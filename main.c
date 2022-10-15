@@ -42,7 +42,7 @@ double get_average_result(double *inputs, double *neuron, int count, int size, a
 double get_average_expected(double *inputs, int count, int size);
 
 int main(int argc, char const *argv[]) {
-    srand(4);
+    srand(5);
     if (argc < 9) {
         return -argc;
     }
@@ -115,7 +115,6 @@ double *gen_training_patterns(int size, int count, double pattern_min, double pa
     return arr;
 }
 
-
 double fRand(double fMin, double fMax) {
     double f = (double) rand() / RAND_MAX;
     return fMin + f * (fMax - fMin);
@@ -140,8 +139,8 @@ void train_one_pattern(int size, double *neuron, double *inputs, double training
     change_weights(size, neuron, inputs, out, training_step);
 }
 
-void
-train_all_patterns(int size, int count, double *neuron, double *inputs, double training_step, activation_function f) {
+void train_all_patterns(int size, int count, double *neuron, double *inputs,
+                        double training_step, activation_function f) {
     for (long i = 0; i < count; i++) {
         double *sub_arr = malloc((size + 1) * sizeof(double));
         for (int j = 0; j < size + 1; j++) {
