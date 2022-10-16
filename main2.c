@@ -113,9 +113,6 @@ int main(int argc, char const *argv[]) {
 
     free(str);
 
-    normalize_input(allInputsTrain);
-    normalize_input_test(allInputsTest);
-
     struct all_data_train allData = {
             .training_step = in_data.training_step,
             .epoch_count = in_data.epoch_count,
@@ -138,11 +135,19 @@ int main(int argc, char const *argv[]) {
     };
 
 
-    test_neurons(allDataTest, lineral_func);
-
+//    test_neurons(allDataTest, lineral_func);
+    for(int i = 0; i < allData.neurons_count * allData.training_pattern_len; i++) {
+        allDataTest.neurons[i] = allData.training_patterns[i];
+    }
+    for (int i = 0; i < allData.neurons_count; i++) {
+        normalize_vec(&allDataTest.neurons[i*allDataTest.test_pattern_len], allDataTest.test_pattern_len);
+    }
+    for (int i = 0; i < allDataTest.test_pattern_count; i++) {
+        normalize_vec(&allDataTest.test_patterns[i*allDataTest.test_pattern_len], allDataTest.test_pattern_len);
+    }
     printf("\n");
 
-    train_neurons(allData, lineral_func);
+//    train_neurons(allData, lineral_func);
 
 
     test_neurons(allDataTest, lineral_func);
