@@ -128,9 +128,6 @@ int main(int argc, char const *argv[]) {
             .neurons = gen_neuron(allInputsTrain.unique_characters_count * allInputsTrain.rows * allInputsTrain.cols, 0,
                                   1),
     };
-
-    train_neurons(allData, lineral_func);
-
     struct all_data_test allDataTest = {
             .neurons = allData.neurons,
             .neurons_chars = allData.neurons_chars,
@@ -140,8 +137,15 @@ int main(int argc, char const *argv[]) {
             .test_pattern_len = allInputsTest.cols * allInputsTest.rows,
     };
 
+
     test_neurons(allDataTest, lineral_func);
 
+    printf("\n");
+
+    train_neurons(allData, lineral_func);
+
+
+    test_neurons(allDataTest, lineral_func);
 
     return 0;
 }
