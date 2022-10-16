@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 struct in_data {
     const char *file_name;
@@ -11,7 +12,7 @@ struct all_inputs {
     int count;
     int rows;
     int cols;
-    short *input;
+    double *input;
 };
 
 struct all_data {
@@ -44,6 +45,7 @@ double get_average_result(double *inputs, double *neuron, int count, int size, a
 double get_average_expected(double *inputs, int count, int size);
 
 struct all_inputs parse_file(char *file);
+void normalize_input(struct all_inputs allInputs);
 
 char *read_file(char *file_name);
 
@@ -59,8 +61,23 @@ int main(int argc, char const *argv[]) {
 
     struct all_inputs allInputs = parse_file(read_file(in_data.file_name));
 
+    normalize_input(allInputs);
 
     return 0;
+}
+
+void normalize_input(struct all_inputs allInputs) {
+    int i,j;
+    for (i = 0; i < allInputs.count; i++) {
+        double count = 0;
+        for (j = 0; j <allInputs.cols * allInputs.cols; j++) {
+            count += allInputs.input[i * allInputs.cols * allInputs.rows + j];
+        }
+        count = sqrt(count);
+        for (j = 0; j <allInputs.cols * allInputs.cols; j++) {
+            allInputs.input[i * allInputs.cols * allInputs.rows + j] = allInputs.input[i * allInputs.cols * allInputs.rows + j]/count;
+        }
+    }
 }
 
 char *read_file(char *file_name) {
