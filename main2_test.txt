@@ -1,0 +1,28 @@
+;exemplary text input file for MADALINE network testing
+4 ;number of testing patterns
+;horizontal and vertical resolutions of single test characters ;are already determined by the network construction scheme
+;given in the earlier
+;test character's shape
+;disturbed letter "X"
+##-#
+-##-
+-##-
+---#
+;test character's shape
+;disturbed letter "Y"
+#--#
+--##
+-#--
+#---
+;test character's shape
+;undisturbed letter "Z"
+####
+--#-
+-#--
+####
+;test character's shape
+;negative of letter "Y"
+-##-
+#--#
+#-##
+-###

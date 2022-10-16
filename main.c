@@ -12,7 +12,7 @@ struct in_data {
     double training_in_max;
 };
 
-struct all_data {
+struct all_data_train {
     struct in_data in_data;
     double *neuron;
     double *training_patterns;
@@ -58,7 +58,7 @@ int main(int argc, char const *argv[]) {
             .training_in_max = strtod(argv[8], NULL)
     };
 
-    struct all_data all_data = {
+    struct all_data_train all_data = {
             .in_data = in_data,
             .neuron = gen_neuron(in_data.N, in_data.weight_min, in_data.weight_max),
             .training_patterns = gen_training_patterns(in_data.N, in_data.M, in_data.training_in_min,

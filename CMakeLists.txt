@@ -10,3 +10,4 @@ add_executable(madaline
         main2.c)
 
 file(COPY main2_in.txt DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY main2_test.txt DESTINATION ${CMAKE_BINARY_DIR})
