@@ -5,3 +5,6 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(Neuron_Liniowy
         main.c)
+
+add_executable(madaline
+        main2.c)

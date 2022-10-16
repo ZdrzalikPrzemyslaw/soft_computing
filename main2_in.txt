@@ -1,0 +1,22 @@
+;exemplary text input file for MADALINE network construction
+3 ;the number of template patterns
+4 ;horizontal resolution of a single character (4 pixels)
+4 ;vertical resolution of a single character (also 4 pixels)
+X ;the name of the first character
+;character's shape definition on 4x4 pixel matrix
+#--#
+-##-
+-##-
+#--#
+Y ;the name of the second character
+;character's shape definition on 4x4 pixel matrix
+#--#
+-##-
+-#--
+#---
+Z ;the name of the third character
+;character's shape definition on 4x4 pixel matrix
+####
+--#-
+-#--
+####
