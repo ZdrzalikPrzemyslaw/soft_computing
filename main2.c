@@ -32,7 +32,6 @@ struct all_inputs_test {
 };
 
 struct all_data_train {
-    int epoch_count;
     double *neurons;
     double *training_patterns;
     char *expected;
@@ -40,7 +39,6 @@ struct all_data_train {
     int training_pattern_count;
     int neurons_count;
     char *neurons_chars;
-    double training_step;
 };
 
 struct all_data_test {
@@ -56,9 +54,9 @@ double *gen_neuron(int size, double weight_min, double weight_max);
 
 double *gen_training_patterns(int size, int count, double pattern_min, double pattern_max);
 
-void print_double_arr(int len, double *arr);
+//void print_double_arr(int len, double *arr);
 
-void print_char_arr(int len, const char *arr[]);
+//void print_char_arr(int len, const char *arr[]);
 
 double fRand(double fMin, double fMax);
 
@@ -78,13 +76,13 @@ struct all_inputs_test parse_file_test(char *file, struct all_inputs_train allIn
 
 struct all_inputs_train parse_file_train(char *file);
 
-void normalize_input(struct all_inputs_train allInputs);
+//void normalize_input(struct all_inputs_train allInputs);
 
-void normalize_input_test(struct all_inputs_test allInputs);
+//void normalize_input_test(struct all_inputs_test allInputs);
 
 char *read_file(const char *file_name);
 
-void train_neurons(struct all_data_train allData, activation_function func);
+//void train_neurons(struct all_data_train allData, activation_function func);
 
 void test_neurons(struct all_data_test allData, activation_function func);
 
@@ -97,8 +95,6 @@ int main(int argc, char const *argv[]) {
     struct in_data in_data = {
             .file_name_train = argv[1],
             .file_name_test = argv[2],
-            .epoch_count = strtol(argv[3], NULL, 0),
-            .training_step = strtod(argv[4], NULL),
     };
 
     struct all_inputs_train allInputsTrain;
@@ -114,8 +110,6 @@ int main(int argc, char const *argv[]) {
     free(str);
 
     struct all_data_train allData = {
-            .training_step = in_data.training_step,
-            .epoch_count = in_data.epoch_count,
             .training_patterns = allInputsTrain.input,
             .neurons_count = allInputsTrain.unique_characters_count,
             .neurons_chars = allInputsTrain.unique_characters,
@@ -136,6 +130,9 @@ int main(int argc, char const *argv[]) {
 
 
 //    test_neurons(allDataTest, lineral_func);
+    /*
+     * Trochę to oszukane, albowiem zakładam że treningowy plik ma kazda literke zdefiniowana raz i robie cyk przerzut, ale bedzie dzialac
+     */
     for(int i = 0; i < allData.neurons_count * allData.training_pattern_len; i++) {
         allDataTest.neurons[i] = allData.training_patterns[i];
     }
@@ -169,39 +166,39 @@ void test_neurons(struct all_data_test allData, activation_function func) {
     }
 }
 
-void train_neurons(struct all_data_train allData, activation_function func) {
-    for (int i = 0; i < allData.epoch_count; i++) {
-        for (int j = 0; j < allData.training_pattern_count; j++) {
-            for (int k = 0; k < allData.neurons_count; k++) {
-                double expected = allData.expected[j] == allData.neurons_chars[k];
-                double sum = 0;
-                for (int l = 0; l < allData.training_pattern_len; l++) {
-                    sum += allData.training_patterns[j * allData.training_pattern_len + l] *
-                           allData.neurons[k * allData.training_pattern_len + l];
-                }
-                sum = func(sum);
-                for (int l = 0; l < allData.training_pattern_len; l++) {
-                    allData.neurons[k * allData.training_pattern_len + l] =
-                            allData.neurons[k * allData.training_pattern_len + l]
-                            + allData.training_step * (expected - sum) *
-                              allData.training_patterns[j * allData.training_pattern_len + l];
-                }
-            }
-        }
-    }
-}
+//void train_neurons(struct all_data_train allData, activation_function func) {
+//    for (int i = 0; i < allData.epoch_count; i++) {
+//        for (int j = 0; j < allData.training_pattern_count; j++) {
+//            for (int k = 0; k < allData.neurons_count; k++) {
+//                double expected = allData.expected[j] == allData.neurons_chars[k];
+//                double sum = 0;
+//                for (int l = 0; l < allData.training_pattern_len; l++) {
+//                    sum += allData.training_patterns[j * allData.training_pattern_len + l] *
+//                           allData.neurons[k * allData.training_pattern_len + l];
+//                }
+//                sum = func(sum);
+//                for (int l = 0; l < allData.training_pattern_len; l++) {
+//                    allData.neurons[k * allData.training_pattern_len + l] =
+//                            allData.neurons[k * allData.training_pattern_len + l]
+//                            + allData.training_step * (expected - sum) *
+//                              allData.training_patterns[j * allData.training_pattern_len + l];
+//                }
+//            }
+//        }
+//    }
+//}
 
-void normalize_input(struct all_inputs_train allInputs) {
-    for (int i = 0; i < allInputs.count; i++) {
-        normalize_vec(allInputs.input + allInputs.rows * allInputs.cols * i, allInputs.rows * allInputs.cols);
-    }
-}
-
-void normalize_input_test(struct all_inputs_test allInputs) {
-    for (int i = 0; i < allInputs.count; i++) {
-        normalize_vec(allInputs.input + allInputs.rows * allInputs.cols * i, allInputs.rows * allInputs.cols);
-    }
-}
+//void normalize_input(struct all_inputs_train allInputs) {
+//    for (int i = 0; i < allInputs.count; i++) {
+//        normalize_vec(allInputs.input + allInputs.rows * allInputs.cols * i, allInputs.rows * allInputs.cols);
+//    }
+//}
+//
+//void normalize_input_test(struct all_inputs_test allInputs) {
+//    for (int i = 0; i < allInputs.count; i++) {
+//        normalize_vec(allInputs.input + allInputs.rows * allInputs.cols * i, allInputs.rows * allInputs.cols);
+//    }
+//}
 
 void normalize_vec(double *vec, int length) {
     int j;
@@ -316,22 +313,6 @@ struct all_inputs_test parse_file_test(char *file, struct all_inputs_train allIn
         c = c + 1;
     }
     return allInputs;
-}
-
-void print_double_arr(int len, double *arr) {
-    printf("len = %i\n", len);
-    for (int i = 0; i < len; i++) {
-        printf("%f ", arr[i]);
-    }
-    printf("\n");
-}
-
-void print_char_arr(int len, const char *arr[]) {
-    printf("len = %i\n", len);
-    for (int i = 0; i < len; i++) {
-        printf("%s ", arr[i]);
-    }
-    printf("\n");
 }
 
 double *gen_neuron(int size, double weight_min, double weight_max) {
