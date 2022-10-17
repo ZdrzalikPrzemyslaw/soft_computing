@@ -4,10 +4,10 @@ project(Neuron_Liniowy C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(Neuron_Liniowy
-        main.c)
+        ex_1.c)
 
 add_executable(madaline
-        main2.c)
+        ex_2.c)
 
-file(COPY main2_in.txt DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY main2_test.txt DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ex_2_train.txt DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ex_2_test.txt DESTINATION ${CMAKE_BINARY_DIR})

@@ -88,7 +88,7 @@ void test_neurons(struct all_data_test allData, activation_function func);
 
 int main(int argc, char const *argv[]) {
     srand(5);
-    if (argc < 4) {
+    if (argc < 3) {
         return -argc;
     }
 
